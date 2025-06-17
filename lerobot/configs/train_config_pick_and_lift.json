@@ -214,14 +214,14 @@
             "cameras": {
                 "front": {
                     "type": "opencv",
-                    "index_or_path": 0,
+                    "index_or_path": 1,
                     "height": 480,
                     "width": 640,
                     "fps": 30
                 },
                 "wrist": {
                     "type": "opencv",
-                    "index_or_path": 2,
+                    "index_or_path": 0,
                     "height": 480,
                     "width": 640,
                     "fps": 30
