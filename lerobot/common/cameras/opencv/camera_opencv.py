@@ -165,7 +165,7 @@ class OpenCVCamera(Camera):
                 f"Run `python -m lerobot.find_cameras opencv` to find available cameras."
             )
 
-        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
         self._configure_capture_settings()
 
