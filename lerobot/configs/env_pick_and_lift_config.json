@@ -6,7 +6,7 @@
         "cameras": {
             "front": {
                 "type": "opencv",
-                "index_or_path": 1,
+                "index_or_path": 2,
                 "height": 480,
                 "width": 640,
                 "fps": 30
