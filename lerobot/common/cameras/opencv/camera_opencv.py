@@ -386,7 +386,7 @@ class OpenCVCamera(Camera):
         """
         while not self.stop_event.is_set():
             try:
-                self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+                # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
                 color_image = self.read()
 
                 with self.frame_lock:
