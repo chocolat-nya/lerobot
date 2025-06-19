@@ -156,7 +156,7 @@ class OpenCVCamera(Camera):
         cv2.setNumThreads(1)
 
         self.videocapture = cv2.VideoCapture(self.index_or_path, self.backend)
-        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
         if not self.videocapture.isOpened():
             self.videocapture.release()
@@ -265,7 +265,7 @@ class OpenCVCamera(Camera):
 
         for target in targets_to_scan:
             camera = cv2.VideoCapture(target)
-            camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+            # camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
             if camera.isOpened():
                 default_width = int(camera.get(cv2.CAP_PROP_FRAME_WIDTH))
                 default_height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -317,7 +317,7 @@ class OpenCVCamera(Camera):
 
         start_time = time.perf_counter()
 
-        # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         ret, frame = self.videocapture.read()
 
         if not ret or frame is None:
