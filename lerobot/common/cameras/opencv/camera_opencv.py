@@ -113,7 +113,6 @@ class OpenCVCamera(Camera):
         self.warmup_s = config.warmup_s
 
         self.videocapture: cv2.VideoCapture | None = None
-        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
         self.thread: Thread | None = None
         self.stop_event: Event | None = None
@@ -172,6 +171,7 @@ class OpenCVCamera(Camera):
         if warmup:
             start_time = time.time()
             while time.time() - start_time < self.warmup_s:
+                self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
                 self.read()
                 time.sleep(0.1)
 
@@ -386,6 +386,7 @@ class OpenCVCamera(Camera):
         """
         while not self.stop_event.is_set():
             try:
+                self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
                 color_image = self.read()
 
                 with self.frame_lock:
