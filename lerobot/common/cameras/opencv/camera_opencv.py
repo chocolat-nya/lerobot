@@ -156,7 +156,7 @@ class OpenCVCamera(Camera):
         cv2.setNumThreads(1)
 
         self.videocapture = cv2.VideoCapture(self.index_or_path, self.backend)
-        # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
         if not self.videocapture.isOpened():
             self.videocapture.release()
@@ -171,7 +171,7 @@ class OpenCVCamera(Camera):
         if warmup:
             start_time = time.time()
             while time.time() - start_time < self.warmup_s:
-                self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+                # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
                 self.read()
                 time.sleep(0.1)
 
@@ -317,7 +317,7 @@ class OpenCVCamera(Camera):
 
         start_time = time.perf_counter()
 
-        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         ret, frame = self.videocapture.read()
 
         if not ret or frame is None:
