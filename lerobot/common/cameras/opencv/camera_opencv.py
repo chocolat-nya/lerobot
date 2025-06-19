@@ -155,7 +155,7 @@ class OpenCVCamera(Camera):
         # blocking in multi-threaded applications, especially during data collection.
         cv2.setNumThreads(1)
 
-        self.videocapture = cv2.VideoCapture(self.index_or_path, self.backend)
+        self.videocapture = cv2.VideoCapture(self.index_or_path, cv2.CAP_V4L2) # self.backend
 
         if not self.videocapture.isOpened():
             self.videocapture.release()
@@ -165,7 +165,9 @@ class OpenCVCamera(Camera):
                 f"Run `python -m lerobot.find_cameras opencv` to find available cameras."
             )
 
-        # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
         self._configure_capture_settings()
 
