@@ -165,7 +165,7 @@ class OpenCVCamera(Camera):
                 f"Run `python -m lerobot.find_cameras opencv` to find available cameras."
             )
 
-        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
@@ -320,7 +320,7 @@ class OpenCVCamera(Camera):
 
         start_time = time.perf_counter()
 
-        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
