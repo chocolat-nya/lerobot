@@ -186,9 +186,8 @@ class SO100FollowerEndEffector(SO100Follower):
 
         # Capture images from cameras
         for cam_key, cam in self.cameras.items():
-            print(f"cam_key: {cam_key}, cam: {cam}")
             start = time.perf_counter()
-            obs_dict[cam_key] = cam.async_read(timeout_ms=1000)
+            obs_dict[cam_key] = cam.async_read(timeout_ms=10000)
             dt_ms = (time.perf_counter() - start) * 1e3
             logger.debug(f"{self} read {cam_key}: {dt_ms:.1f}ms")
 
