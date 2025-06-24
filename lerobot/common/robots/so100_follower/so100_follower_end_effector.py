@@ -184,6 +184,14 @@ class SO100FollowerEndEffector(SO100Follower):
         # self.cameras.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         # self.cameras.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
+        # カメラのwarmup
+        for cam in self.cameras.values():
+            for _ in range(5):
+                try:
+                    cam.async_read()
+                except TimeoutError:
+                    pass
+
         # Capture images from cameras
         for cam_key, cam in self.cameras.items():
             print(f"cam_key: {cam_key}, cam: {cam}")
