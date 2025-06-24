@@ -168,9 +168,7 @@ class OpenCVCamera(Camera):
         self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-
-        fourcc = int(self.videocapture.get(cv2.CAP_PROP_FOURCC))
-        print(f"FOURCC: {fourcc.to_bytes(4, 'little').decode(errors='ignore')}")
+        self.videocapture.set(cv2.CAP_PROP_FPS, 15)
 
         self._configure_capture_settings()
 
@@ -324,8 +322,9 @@ class OpenCVCamera(Camera):
         start_time = time.perf_counter()
 
         self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
-        fourcc = int(self.videocapture.get(cv2.CAP_PROP_FOURCC))
-        print(f"FOURCC: {fourcc.to_bytes(4, 'little').decode(errors='ignore')}")
+        self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+        self.videocapture.set(cv2.CAP_PROP_FPS, 15)
         ret, frame = self.videocapture.read()
 
         if not ret or frame is None:
