@@ -320,7 +320,7 @@ class OpenCVCamera(Camera):
 
         start_time = time.perf_counter()
 
-        # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         ret, frame = self.videocapture.read()
 
         if not ret or frame is None:
