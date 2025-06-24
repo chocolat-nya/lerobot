@@ -180,6 +180,8 @@ class SO100FollowerEndEffector(SO100Follower):
         dt_ms = (time.perf_counter() - start) * 1e3
         logger.debug(f"{self} read state: {dt_ms:.1f}ms")
 
+        print(f"sefl.cameras: {self.cameras}")
+
         self.cameras.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.cameras.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self.cameras.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
