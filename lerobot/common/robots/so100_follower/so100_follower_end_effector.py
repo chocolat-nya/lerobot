@@ -184,19 +184,11 @@ class SO100FollowerEndEffector(SO100Follower):
         # self.cameras.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         # self.cameras.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
-        # カメラのwarmup
-        for cam in self.cameras.values():
-            for _ in range(5):
-                try:
-                    cam.async_read()
-                except TimeoutError:
-                    pass
-
         # Capture images from cameras
         for cam_key, cam in self.cameras.items():
             print(f"cam_key: {cam_key}, cam: {cam}")
             start = time.perf_counter()
-            obs_dict[cam_key] = cam.async_read()
+            obs_dict[cam_key] = cam.async_read(timeout_ms=1000)
             dt_ms = (time.perf_counter() - start) * 1e3
             logger.debug(f"{self} read {cam_key}: {dt_ms:.1f}ms")
 
