@@ -19,6 +19,7 @@ import time
 from typing import Any
 
 import numpy as np
+import cv2
 
 from lerobot.common.cameras import make_cameras_from_configs
 from lerobot.common.errors import DeviceNotConnectedError
@@ -182,6 +183,9 @@ class SO100FollowerEndEffector(SO100Follower):
         # Capture images from cameras
         for cam_key, cam in self.cameras.items():
             start = time.perf_counter()
+            cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+            cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+            cam.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
             obs_dict[cam_key] = cam.async_read()
             dt_ms = (time.perf_counter() - start) * 1e3
             logger.debug(f"{self} read {cam_key}: {dt_ms:.1f}ms")
