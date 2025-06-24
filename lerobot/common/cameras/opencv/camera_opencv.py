@@ -169,6 +169,9 @@ class OpenCVCamera(Camera):
         self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
+        fourcc = int(cap.get(cv2.CAP_PROP_FOURCC))
+        print(f"FOURCC: {fourcc.to_bytes(4, 'little').decode(errors='ignore')}")
+
         self._configure_capture_settings()
 
         if warmup:
@@ -321,6 +324,8 @@ class OpenCVCamera(Camera):
         start_time = time.perf_counter()
 
         self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        fourcc = int(cap.get(cv2.CAP_PROP_FOURCC))
+        print(f"FOURCC: {fourcc.to_bytes(4, 'little').decode(errors='ignore')}")
         ret, frame = self.videocapture.read()
 
         if not ret or frame is None:
