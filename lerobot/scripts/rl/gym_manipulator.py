@@ -687,10 +687,10 @@ class ImageCropResizeWrapper(gym.Wrapper):
         super().__init__(env)
         self.env = env
         self.crop_params_dict = crop_params_dict
-        print(f"obs_keys , {self.env.observation_space}")
+        print(f"obs_keys , {self.env.unwrapped.observation_space}")
         print(f"crop params dict {crop_params_dict.keys()}")
         for key_crop in crop_params_dict:
-            if key_crop not in self.env.observation_space.keys():  # noqa: SIM118
+            if key_crop not in self.env.unwrapped.observation_space.keys():  # noqa: SIM118
                 raise ValueError(f"Key {key_crop} not in observation space")
         for key in crop_params_dict:
             new_shape = (3, resize_size[0], resize_size[1])
@@ -848,9 +848,9 @@ class ResetWrapper(gym.Wrapper):
             log_say("Reset the environment done.", play_sounds=True)
 
             if hasattr(self.env, "robot_leader"):
-                self.env.robot_leader.bus.sync_write("Torque_Enable", 1)
+                self.env.unwrapped.robot_leader.bus.sync_write("Torque_Enable", 1)
                 log_say("Reset the leader robot.", play_sounds=True)
-                reset_follower_position(self.env.robot_leader, self.reset_pose)
+                reset_follower_position(self.env.unwrapped.robot_leader, self.reset_pose)
                 log_say("Reset the leader robot done.", play_sounds=True)
         else:
             log_say(
@@ -859,7 +859,7 @@ class ResetWrapper(gym.Wrapper):
             )
             start_time = time.perf_counter()
             while time.perf_counter() - start_time < self.reset_time_s:
-                action = self.env.robot_leader.get_action()
+                action = self.env.unwrapped.robot_leader.get_action()
                 self.unwrapped.robot.send_action(action)
 
             log_say("Manual reset of the environment done.", play_sounds=True)
@@ -2036,7 +2036,7 @@ def record_dataset(env, policy, cfg):
     features = {
         "observation.state": {
             "dtype": "float32",
-            "shape": env.observation_space["observation.state"].shape,
+            "shape": env.unwrapped.observation_space["observation.state"].shape,
             "names": None,
         },
         "action": {
@@ -2054,11 +2054,11 @@ def record_dataset(env, policy, cfg):
     }
 
     # Add image features
-    for key in env.observation_space:
+    for key in env.unwrapped.observation_space:
         if "image" in key:
             features[key] = {
                 "dtype": "video",
-                "shape": env.observation_space[key].shape,
+                "shape": env.unwrapped.observation_space[key].shape,
                 "names": ["channels", "height", "width"],
             }
 
