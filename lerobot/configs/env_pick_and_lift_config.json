@@ -9,14 +9,14 @@
                 "index_or_path": 2,
                 "height": 480,
                 "width": 640,
-                "fps": 15
+                "fps": 24
             },
             "wrist": {
                 "type": "opencv",
                 "index_or_path": 0,
                 "height": 480,
                 "width": 640,
-                "fps": 15
+                "fps": 24
             }
         },
         "end_effector_bounds": {
