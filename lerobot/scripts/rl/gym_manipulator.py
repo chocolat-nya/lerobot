@@ -209,7 +209,7 @@ class TorchActionWrapper(gym.Wrapper):
         """
         if action.ndim == 2:
             action = action.squeeze(0)
-        action = action.detach().cpu().numpy()
+        # action = action.detach().cpu().numpy()
         return self.env.step(action)
 
 
