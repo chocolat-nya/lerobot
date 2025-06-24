@@ -182,12 +182,13 @@ class SO100FollowerEndEffector(SO100Follower):
 
         print(f"sefl.cameras: {self.cameras}")
 
-        self.cameras.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        self.cameras.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        self.cameras.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        # self.cameras.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        # self.cameras.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+        # self.cameras.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
         # Capture images from cameras
         for cam_key, cam in self.cameras.items():
+            print(f"cam_key: {cam_key}, cam: {cam}")
             start = time.perf_counter()
             obs_dict[cam_key] = cam.async_read()
             dt_ms = (time.perf_counter() - start) * 1e3
