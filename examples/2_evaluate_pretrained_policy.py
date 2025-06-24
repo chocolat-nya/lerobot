@@ -63,7 +63,7 @@ print(env.observation_space)
 # Similarly, we can check that the actions produced by the policy will match the actions expected by the
 # environment
 print(policy.config.output_features)
-print(env.action_space)
+print(env.unwrapped.action_space)
 
 # Reset the policy and environments to prepare for rollout
 policy.reset()

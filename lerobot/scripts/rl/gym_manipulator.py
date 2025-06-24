@@ -187,9 +187,9 @@ class TorchActionWrapper(gym.Wrapper):
         """
         super().__init__(env)
         self.action_space = TorchBox(
-            low=env.action_space.low,
-            high=env.action_space.high,
-            shape=env.action_space.shape,
+            low=env.unwrapped.action_space.low,
+            high=env.unwrapped.action_space.high,
+            shape=env.unwrapped.action_space.shape,
             torch_dtype=torch.float32,
             device=torch.device("cpu"),
         )
@@ -2026,7 +2026,7 @@ def record_dataset(env, policy, cfg):
     from lerobot.common.datasets.lerobot_dataset import LeRobotDataset
 
     # Setup initial action (zero action if using teleop)
-    action = env.action_space.sample() * 0.0
+    action = env.unwrapped.action_space.sample() * 0.0
 
     action_names = ["delta_x_ee", "delta_y_ee", "delta_z_ee"]
     if cfg.wrapper.use_gripper:
@@ -2233,7 +2233,7 @@ def main(cfg: EnvConfig):
     env.reset()
 
     # Initialize the smoothed action as a random sample.
-    smoothed_action = env.action_space.sample() * 0.0
+    smoothed_action = env.unwrapped.action_space.sample() * 0.0
 
     # Smoothing coefficient (alpha) defines how much of the new random sample to mix in.
     # A value close to 0 makes the trajectory very smooth (slow to change), while a value close to 1 is less smooth.
@@ -2244,7 +2244,7 @@ def main(cfg: EnvConfig):
     while num_episode < 10:
         start_loop_s = time.perf_counter()
         # Sample a new random action from the robot's action space.
-        new_random_action = env.action_space.sample()
+        new_random_action = env.unwrapped.action_space.sample()
         # Update the smoothed action using an exponential moving average.
         smoothed_action = alpha * new_random_action + (1 - alpha) * smoothed_action
 
