@@ -168,7 +168,6 @@ class OpenCVCamera(Camera):
         self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        self.videocapture.set(cv2.CAP_PROP_FPS, 15)
 
         self._configure_capture_settings()
 
@@ -324,7 +323,7 @@ class OpenCVCamera(Camera):
         self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        self.videocapture.set(cv2.CAP_PROP_FPS, 15)
+
         ret, frame = self.videocapture.read()
 
         if not ret or frame is None:
