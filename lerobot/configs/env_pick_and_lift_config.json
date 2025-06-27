@@ -6,41 +6,39 @@
         "cameras": {
             "front": {
                 "type": "opencv",
-                "index_or_path": 0,
-                "height": 480,
-                "width": 640,
-                "fps": 15
-            },
-            "wrist": {
-                "type": "opencv",
                 "index_or_path": 2,
                 "height": 480,
                 "width": 640,
-                "fps": 15
+                "fps": 30
+            },
+            "wrist": {
+                "type": "opencv",
+                "index_or_path": 0,
+                "height": 480,
+                "width": 640,
+                "fps": 30
             }
         },
         "end_effector_bounds": {
             "min": [
-                0.16,
-                -0.08,
-                0.03
+                -0.0501,
+                -0.3433,
+                0.03151
             ],
             "max": [
-                0.24,
-                0.20,
-                0.10
+                0.4467,
+                0.3473,
+                0.7389
             ]
         },
         "end_effector_step_sizes": {
             "x": 0.005,
             "y": 0.005,
             "z": 0.005
-        },
-        "max_gripper_pos": 30
+        }
     },
     "teleop": {
-        "type": "gamepad",
-        "use_gripper": true
+        "type": "gamepad"
     },
     "wrapper": {
         "display_cameras": false,
@@ -67,13 +65,13 @@
         ],
         "control_time_s": 20.0,
         "use_gripper": true,
-        "gripper_quantization_threshold": null,
+        "gripper_quantization_threshold": 0.25,
         "gripper_penalty": -0.02,
         "gripper_penalty_in_reward": false,
         "fixed_reset_joint_positions": [
             0.0,
             0.0,
-            0.0,
+            90.0,
             90.0,
             0.0,
             0.0
@@ -86,13 +84,12 @@
     "repo_id": "chocolat-nya/pick_lift_cube",
     "dataset_root": null,
     "task": "pick_and_lift",
-    "num_episodes": 30,
+    "num_episodes": 1,
     "episode": 0,
     "pretrained_policy_name_or_path": null,
     "device": "cuda",
     "push_to_hub": true,
-    "fps": 10,
-    "number_of_steps_after_success": 0,
+    "fps": 60,
     "features": {
         "observation.images.front": {
             "type": "VISUAL",

@@ -307,9 +307,9 @@ class GamepadController(InputController):
             z_input = 0 if abs(z_input) < self.deadzone else z_input
 
             # Calculate deltas (note: may need to invert axes depending on controller)
-            delta_x = -y_input * self.y_step_size  # Forward/backward
+            delta_x = -z_input * self.z_step_size  # Forward/backward
             delta_y = -x_input * self.x_step_size  # Left/right
-            delta_z = -z_input * self.z_step_size  # Up/down
+            delta_z =  y_input * self.y_step_size  # Up/down
 
             return delta_x, delta_y, delta_z
 

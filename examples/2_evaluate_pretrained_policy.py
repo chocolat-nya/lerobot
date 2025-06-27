@@ -58,12 +58,12 @@ env = gym.make(
 # We can verify that the shapes of the features expected by the policy match the ones from the observations
 # produced by the environment
 print(policy.config.input_features)
-print(env.unwrapped.observation_space)
+print(env.observation_space)
 
 # Similarly, we can check that the actions produced by the policy will match the actions expected by the
 # environment
 print(policy.config.output_features)
-print(env.unwrapped.action_space)
+print(env.action_space)
 
 # Reset the policy and environments to prepare for rollout
 policy.reset()

@@ -156,6 +156,7 @@ class OpenCVCamera(Camera):
         cv2.setNumThreads(1)
 
         self.videocapture = cv2.VideoCapture(self.index_or_path, cv2.CAP_V4L2) # self.backend
+        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
         if not self.videocapture.isOpened():
             self.videocapture.release()
@@ -165,16 +166,11 @@ class OpenCVCamera(Camera):
                 f"Run `python -m lerobot.find_cameras opencv` to find available cameras."
             )
 
-        self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
-
         self._configure_capture_settings()
 
         if warmup:
             start_time = time.time()
             while time.time() - start_time < self.warmup_s:
-                # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
                 self.read()
                 time.sleep(0.1)
 
@@ -267,8 +263,8 @@ class OpenCVCamera(Camera):
             targets_to_scan = list(range(MAX_OPENCV_INDEX))
 
         for target in targets_to_scan:
-            camera = cv2.VideoCapture(target)
-            # camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+            camera = cv2.VideoCapture(target, cv2.CAP_V4L2)
+            camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
             if camera.isOpened():
                 default_width = int(camera.get(cv2.CAP_PROP_FRAME_WIDTH))
                 default_height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -319,10 +315,6 @@ class OpenCVCamera(Camera):
             raise DeviceNotConnectedError(f"{self} is not connected.")
 
         start_time = time.perf_counter()
-
-        self.videocapture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        self.videocapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
         ret, frame = self.videocapture.read()
 
@@ -392,7 +384,6 @@ class OpenCVCamera(Camera):
         """
         while not self.stop_event.is_set():
             try:
-                # self.videocapture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
                 color_image = self.read()
 
                 with self.frame_lock:

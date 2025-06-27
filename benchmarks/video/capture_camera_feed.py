@@ -38,8 +38,8 @@ def display_and_save_video_stream(output_dir: Path, fps: int, width: int, height
         capture_dir.mkdir(parents=True, exist_ok=True)
 
     # Opens the default webcam
-    cap = cv2.VideoCapture(0)
-    # cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+    cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
+    cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
     if not cap.isOpened():
         print("Error: Could not open video stream.")
         return
